@@ -94,7 +94,7 @@ const App: React.FC = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className='w-screen h-screen flex flex-col items-center bg-[#2f74c0]'>
+      <div className='flex flex-col items-center w-screen min-h-screen  bg-[#2f74c0]'>
         <span className='uppercase text-[40px] my-[30px] max-[800px]:my-[15px] max-[800px]:text-[35px] text-white z-10'>
           Taskify
         </span>
