@@ -8,6 +8,7 @@ interface Props {
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
   completedTodos: Todo[];
   setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  handleDone: (id: number, action: string) => void;
 }
 
 const TodoList: React.FC<Props> = ({
@@ -15,6 +16,7 @@ const TodoList: React.FC<Props> = ({
   setTodos,
   completedTodos,
   setCompletedTodos,
+  handleDone,
 }) => {
   return (
     <div className='flex flex-col items-center flex-wrap my-4 w-11/12 md:flex-row md:items-start md:justify-between'>
@@ -35,6 +37,7 @@ const TodoList: React.FC<Props> = ({
                 key={todo.id}
                 todos={todos}
                 setTodos={setTodos}
+                handleDone={handleDone}
               />
             ))}
             {provided.placeholder}
@@ -58,6 +61,7 @@ const TodoList: React.FC<Props> = ({
                 key={todo.id}
                 todos={completedTodos}
                 setTodos={setCompletedTodos}
+                handleDone={handleDone}
               />
             ))}
             {provided.placeholder}

@@ -18,8 +18,49 @@ const App: React.FC = () => {
     }
   };
 
+  const handleDone = (id: number, action: string) => {
+    switch (action) {
+      case 'done': {
+        console.log('TODOS', todos);
+        console.log('ACTION', action);
+        const foundTodo = todos.find(todo => todo.id === id);
+        if (foundTodo) {
+          if (foundTodo.isDone === false) {
+            // Establecer el estado isDone en true
+            foundTodo.isDone = true;
+            // Mover la tarea al arreglo de tareas completadas
+            setCompletedTodos([...completedTodos, foundTodo]);
+            // Remover la tarea del arreglo de todos
+            setTodos(todos.filter(todo => todo.id !== id));
+          }
+        }
+        break;
+      }
+      case 'undo': {
+        console.log('COMPLETED TODOS', todos);
+        console.log('ACTION', action);
+        const foundTodo = completedTodos.find(todo => todo.id === id);
+        if (foundTodo) {
+          if (foundTodo.isDone === true) {
+            // Establecer el estado isDone en false
+            foundTodo.isDone = false;
+
+            // Remover la tarea del arreglo de completedTodos
+            setCompletedTodos(completedTodos.filter(todo => todo.id !== id));
+            // Mover la tarea al arreglo de tareas por hacer
+            setTodos([...todos, foundTodo]);
+          }
+        }
+        break;
+      }
+      default:
+        console.log('Unsuported action');
+    }
+  };
+
   const onDragEnd = (result: DropResult) => {
-    const { source, destination } = result;
+    const { source, destination, draggableId } = result;
+    console.log(result);
     if (!destination) return;
     if (
       destination.droppableId === source.droppableId &&
@@ -32,9 +73,11 @@ const App: React.FC = () => {
       complete = completedTodos;
 
     if (source.droppableId === 'TodosList') {
+      handleDone(Number(draggableId), 'done');
       add = active[source.index];
       active.splice(source.index, 1);
     } else {
+      handleDone(Number(draggableId), 'undo');
       add = complete[source.index];
       complete.splice(source.index, 1);
     }
@@ -61,6 +104,7 @@ const App: React.FC = () => {
           setTodos={setTodos}
           completedTodos={completedTodos}
           setCompletedTodos={setCompletedTodos}
+          handleDone={handleDone}
         />
       </div>
     </DragDropContext>
