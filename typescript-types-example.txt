@@ -1,0 +1,46 @@
+interface Person {
+  name: string;
+  age?: number;
+}
+
+interface Guy extends Person {
+  profession: string;
+}
+
+let personTest: Guy;
+personTest = {
+  name: 'Kempis',
+  profession: 'Software developer',
+};
+
+type X = {
+  a: string;
+  b: number;
+};
+
+type Y = X & {
+  c: string;
+  d: number;
+};
+
+let y: Y = {
+  a: 'asd',
+  c: 'asdasd',
+  b: 1,
+};
+
+let name: string; //name ='Kempis'
+let age: number | string; //age = 26
+let isStudent: boolean; //isStudent = true
+let hobbies: string[]; //hobbies = ['videogames', 'programming']
+let role: [number, string]; //role = [1, 'hola']
+let person: Person;
+
+person = {
+  name: 'Kempis',
+  age: 26,
+};
+
+let printName: (name: string) => void;
+
+let lotsOfPeople: Person[]; // arreglo de personas
